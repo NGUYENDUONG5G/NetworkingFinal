@@ -15,7 +15,7 @@ class DVrouter(Router):
 
     def handle_new_link(self, port, endpoint, cost):
         self.neighbors[port] = (endpoint, cost)
-        self.dv_from_neighbors[endpoint] = 
+        self.dv_from_neighbors[endpoint] = {}
         if endpoint not in self.dv or cost < self.dv[endpoint]:
             self.dv[endpoint] = cost
             self.forwarding_table[endpoint] = port

@@ -3,14 +3,13 @@ from packet import Packet
 import heapq
 import json
 
-
 class LSrouter(Router):
 
     def __init__(self, addr, heartbeat_time):
         super().__init__(addr)
         self.heartbeat_time = heartbeat_time
         self.last_time = 0
-
+       
         self.lsdb = {}
         self.neighbors = {}
         self.forwarding_table = {}
@@ -51,8 +50,7 @@ class LSrouter(Router):
                 for p, (nbr, _) in self.neighbors.items():
                     if p != port:
                         content_str = json.dumps((origin, seq, links))
-                        pkt = Packet(Packet.ROUTING, self.addr,
-                                     nbr, content=content_str)
+                        pkt = Packet(Packet.ROUTING, self.addr, nbr, content=content_str)
                         self.send(p, pkt)
 
     def advertise_lsp(self):
@@ -65,8 +63,7 @@ class LSrouter(Router):
         self.run_dijkstra()
 
     def run_dijkstra(self):
-        graph = {router: links.copy()
-                 for router, (_, links) in self.lsdb.items()}
+        graph = {router: links.copy() for router, (_, links) in self.lsdb.items()}
         dist = {self.addr: 0}
         prev = {}
         heap = [(0, self.addr)]
@@ -82,7 +79,7 @@ class LSrouter(Router):
                     dist[v] = nd
                     prev[v] = u
                     heapq.heappush(heap, (nd, v))
-
+       
         self.forwarding_table.clear()
         for dest, total_cost in dist.items():
             if dest == self.addr:
