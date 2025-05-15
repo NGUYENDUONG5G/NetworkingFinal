@@ -5,7 +5,7 @@
 #####################################################
 
 from router import Router
-import Packet
+import packet
 
 class DVrouter(Router):
     """Distance vector routing protocol implementation.
