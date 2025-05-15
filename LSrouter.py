@@ -6,7 +6,7 @@
 
 
 from router import Router
-import packet
+from packet import Packet
 import heapq
 
 
